@@ -1,0 +1,35 @@
+Why is Claude's 00-raw.cpp ~4x slower than Codex's? (experiment, 2026-10-01)
+Run by Claude Opus 5.5 at my direction. Linux arm64, g++ 11.4.0, plain build
+(g++ file.cpp -o file), 500,000 emails then 500,000 NEXT/READ pairs, same
+generated file as run-tests.sh section 7, user CPU seconds, best of 3.
+
+Variant                                                      time
+claude.cpp      unchanged 00-raw                             3.306 s / 3.346 s (two sessions)
+claude_ref.cpp  dateGreater takes const string& (no copies)  3.223 s
+claude_key.cpp  date turned into one number YYYYMMDD once,   1.098 s
+                in the Email constructor; operator> compares
+                that number instead of calling dateGreater
+codex.cpp       unchanged 00-raw                             0.797 s / 0.808 s
+
+claude_key.cpp still matches the sample output byte for byte.
+
+Reading: copying the strings is almost free (3.31 -> 3.22). Re-parsing the
+date strings with substr + stoi on every same-category comparison is the cost:
+computing the date number once removes about 89% of the gap to Codex
+((3.346 - 1.098) / (3.346 - 0.808)). The rest is Claude passing whole Email
+objects by value (push, peek) where Codex passes references.
+
+------------------------------------------------------------------------------
+Why is Codex 01-raw.cpp slower than 00-raw.cpp? (same machine and input file)
+
+Variant                                       user CPU (best of 5)   system
+c00   Codex 00-raw, unchanged                 0.788 s                0.009 s
+c01   Codex 01-raw, unchanged                 0.938 s                0.165 s
+c01n  01-raw with the 5 std::endl -> '\n'     0.869 s                0.016 s
+
+std::endl writes the output out after every line (a system call each time);
+'\n' lets it be written in large blocks. c01n still matches the sample byte
+for byte. c01n is what became email_priority.cpp. The remaining ~10% over
+00-raw is trim() and validDate() running on every line.
+Note: run-tests.sh section 7 records user CPU only, so it understates this
+regression; the system column above is what shows it.

@@ -1,0 +1,464 @@
+
+=== ENVIRONMENT ===
+aarch64
+g++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0
+ldd (Ubuntu GLIBC 2.35-0ubuntu3.15) 2.35
+Fri Oct  2 03:01:35 UTC 2026
+sources: /sessions/rcw-01prah4xt7kyqzdg8hfv7dz2/mnt/AgenticArea/Francis_Tryban_Assignment_3/Codex/iterations/01-raw.cpp
+         /sessions/rcw-01prah4xt7kyqzdg8hfv7dz2/mnt/AgenticArea/Francis_Tryban_Assignment_3/email_priority.cpp
+
+=== COMPILE: g++ <plain command, no flags> ===
+--- codex01.cpp ---
+exit=0
+--- final.cpp ---
+exit=0
+
+=== COMPILE: g++ -Wall -Wextra ===
+--- codex01.cpp ---
+exit=0
+--- final.cpp ---
+exit=0
+
+=== COMPILE: g++ -O2 ===
+--- codex01.cpp ---
+exit=0
+--- final.cpp ---
+exit=0
+
+=== COMPILE: g++ -Wall -Wextra -O2 ===
+--- codex01.cpp ---
+exit=0
+--- final.cpp ---
+exit=0
+
+=== COMPILE: g++ -Wall -Wextra -Wconversion ===
+--- codex01.cpp ---
+exit=0
+--- final.cpp ---
+exit=0
+
+=== COMPILE: g++ -std=c++11 -pedantic ===
+--- codex01.cpp ---
+exit=0
+--- final.cpp ---
+exit=0
+
+=== COMPILE: g++ -std=c++98 -pedantic ===
+--- codex01.cpp ---
+codex01.cpp:31:23: warning: ISO C++ 1998 does not support ‘long long’ [-Wlong-long]
+codex01.cpp:34:124: warning: ISO C++ 1998 does not support ‘long long’ [-Wlong-long]
+codex01.cpp:107:43: error: ‘nullptr’ was not declared in this scope
+codex01.cpp:128:23: warning: ISO C++ 1998 does not support ‘long long’ [-Wlong-long]
+codex01.cpp:128:40: warning: non-static data member initializers only available with ‘-std=c++11’ or ‘-std=gnu++11’
+codex01.cpp:179:30: error: ‘nullptr’ was not declared in this scope
+exit=1
+--- final.cpp ---
+final.cpp:37:23: warning: ISO C++ 1998 does not support ‘long long’ [-Wlong-long]
+final.cpp:41:59: warning: ISO C++ 1998 does not support ‘long long’ [-Wlong-long]
+final.cpp:120:43: error: ‘nullptr’ was not declared in this scope
+final.cpp:145:23: warning: ISO C++ 1998 does not support ‘long long’ [-Wlong-long]
+final.cpp:145:40: warning: non-static data member initializers only available with ‘-std=c++11’ or ‘-std=gnu++11’
+final.cpp:196:30: error: ‘nullptr’ was not declared in this scope
+exit=1
+
+=== SPEC SAMPLE: byte-exact, both input paths ===
+  codex01 (arg): BYTE-IDENTICAL
+  codex01 (stdin): BYTE-IDENTICAL
+  final (arg): BYTE-IDENTICAL
+  final (stdin): BYTE-IDENTICAL
+
+=== RESULTS: inside the stated format ===
+
+######## codex01 ########
+--- NEXT on empty inbox ---
+    No emails to read.
+    [exit=0]
+--- READ on empty inbox ---
+    [exit=0]
+--- COUNT on empty inbox ---
+    There are 0 emails to read.
+    [exit=0]
+--- COUNT with exactly one ---
+    There are 1 emails to read.
+    [exit=0]
+--- two NEXTs, no READ between ---
+    Next email:
+    Sender: Boss
+    Subject: A
+    Date: 01-01-2025
+    Next email:
+    Sender: Boss
+    Subject: A
+    Date: 01-01-2025
+    [exit=0]
+--- two READs, no NEXT between ---
+    There are 0 emails to read.
+    [exit=0]
+--- READ more times than there are emails ---
+    There are 0 emails to read.
+    No emails to read.
+    [exit=0]
+--- tie, same sender AND same date, x3 ---
+    Next email:
+    Sender: Boss
+    Subject: FIRST
+    Date: 01-01-2025
+    Next email:
+    Sender: Boss
+    Subject: SECOND
+    Date: 01-01-2025
+    Next email:
+    Sender: Boss
+    Subject: THIRD
+    Date: 01-01-2025
+    [exit=0]
+--- all five categories, same date ---
+    Next email:
+    Sender: Boss
+    Subject: A
+    Date: 01-01-2025
+    Next email:
+    Sender: Subordinate
+    Subject: B
+    Date: 01-01-2025
+    Next email:
+    Sender: Peer
+    Subject: C
+    Date: 01-01-2025
+    Next email:
+    Sender: ImportantPerson
+    Subject: D
+    Date: 01-01-2025
+    Next email:
+    Sender: OtherPerson
+    Subject: E
+    Date: 01-01-2025
+    [exit=0]
+--- date ordering crosses a year ---
+    Next email:
+    Sender: Boss
+    Subject: NEW
+    Date: 01-01-2025
+    [exit=0]
+--- same year, month decides over day ---
+    Next email:
+    Sender: Peer
+    Subject: FEB01
+    Date: 02-01-2025
+    [exit=0]
+--- subject containing spaces ---
+    Next email:
+    Sender: Boss
+    Subject: A subject with many spaces
+    Date: 01-01-2025
+    [exit=0]
+--- emails added after reading started ---
+    Next email:
+    Sender: Peer
+    Subject: P
+    Date: 01-01-2025
+    Next email:
+    Sender: Boss
+    Subject: B
+    Date: 01-01-2020
+    There are 2 emails to read.
+    [exit=0]
+--- empty file ---
+    [exit=0]
+
+######## final ########
+--- NEXT on empty inbox ---
+    No emails to read.
+    [exit=0]
+--- READ on empty inbox ---
+    [exit=0]
+--- COUNT on empty inbox ---
+    There are 0 emails to read.
+    [exit=0]
+--- COUNT with exactly one ---
+    There are 1 emails to read.
+    [exit=0]
+--- two NEXTs, no READ between ---
+    Next email:
+    Sender: Boss
+    Subject: A
+    Date: 01-01-2025
+    Next email:
+    Sender: Boss
+    Subject: A
+    Date: 01-01-2025
+    [exit=0]
+--- two READs, no NEXT between ---
+    There are 0 emails to read.
+    [exit=0]
+--- READ more times than there are emails ---
+    There are 0 emails to read.
+    No emails to read.
+    [exit=0]
+--- tie, same sender AND same date, x3 ---
+    Next email:
+    Sender: Boss
+    Subject: FIRST
+    Date: 01-01-2025
+    Next email:
+    Sender: Boss
+    Subject: SECOND
+    Date: 01-01-2025
+    Next email:
+    Sender: Boss
+    Subject: THIRD
+    Date: 01-01-2025
+    [exit=0]
+--- all five categories, same date ---
+    Next email:
+    Sender: Boss
+    Subject: A
+    Date: 01-01-2025
+    Next email:
+    Sender: Subordinate
+    Subject: B
+    Date: 01-01-2025
+    Next email:
+    Sender: Peer
+    Subject: C
+    Date: 01-01-2025
+    Next email:
+    Sender: ImportantPerson
+    Subject: D
+    Date: 01-01-2025
+    Next email:
+    Sender: OtherPerson
+    Subject: E
+    Date: 01-01-2025
+    [exit=0]
+--- date ordering crosses a year ---
+    Next email:
+    Sender: Boss
+    Subject: NEW
+    Date: 01-01-2025
+    [exit=0]
+--- same year, month decides over day ---
+    Next email:
+    Sender: Peer
+    Subject: FEB01
+    Date: 02-01-2025
+    [exit=0]
+--- subject containing spaces ---
+    Next email:
+    Sender: Boss
+    Subject: A subject with many spaces
+    Date: 01-01-2025
+    [exit=0]
+--- emails added after reading started ---
+    Next email:
+    Sender: Peer
+    Subject: P
+    Date: 01-01-2025
+    Next email:
+    Sender: Boss
+    Subject: B
+    Date: 01-01-2020
+    There are 2 emails to read.
+    [exit=0]
+--- empty file ---
+    [exit=0]
+
+=== RESULTS: outside the stated format ===
+
+######## codex01 ########
+--- Windows line endings (CRLF) ---
+    There are 2 emails to read.
+    Next email:
+    Sender: Boss
+    Subject: A
+    Date: 01-01-2025
+    [exit=0]
+--- blank lines in the file ---
+    There are 1 emails to read.
+    [exit=0]
+--- trailing space after a command ---
+    There are 1 emails to read.
+    Next email:
+    Sender: Boss
+    Subject: A
+    Date: 01-01-2025
+    [exit=0]
+--- leading space before a command ---
+    There are 1 emails to read.
+    [exit=0]
+--- spaces after the commas ---
+    Next email:
+    Sender: Boss
+    Subject: Newer
+    Date: 01-02-2025
+    [exit=0]
+--- unknown sender category ---
+    Skipped invalid EMAIL command: sender, subject or date is invalid.
+    There are 1 emails to read.
+    Next email:
+    Sender: OtherPerson
+    Subject: Y
+    Date: 01-01-2025
+    [exit=0]
+--- EMAIL line with no commas ---
+    Skipped invalid EMAIL command: expected sender, subject and date.
+    There are 0 emails to read.
+    [exit=0]
+--- EMAIL line with no date ---
+    Skipped invalid EMAIL command: expected sender, subject and date.
+    There are 1 emails to read.
+    Next email:
+    Sender: Boss
+    Subject: Has a date
+    Date: 01-01-2025
+    [exit=0]
+--- non-numeric date ---
+    Skipped invalid EMAIL command: sender, subject or date is invalid.
+    There are 1 emails to read.
+    Next email:
+    Sender: Boss
+    Subject: Good
+    Date: 01-01-2025
+    [exit=0]
+--- lowercase command ---
+    [exit=0]
+
+######## final ########
+--- Windows line endings (CRLF) ---
+    There are 2 emails to read.
+    Next email:
+    Sender: Boss
+    Subject: A
+    Date: 01-01-2025
+    [exit=0]
+--- blank lines in the file ---
+    There are 1 emails to read.
+    [exit=0]
+--- trailing space after a command ---
+    There are 1 emails to read.
+    Next email:
+    Sender: Boss
+    Subject: A
+    Date: 01-01-2025
+    [exit=0]
+--- leading space before a command ---
+    There are 1 emails to read.
+    [exit=0]
+--- spaces after the commas ---
+    Next email:
+    Sender: Boss
+    Subject: Newer
+    Date: 01-02-2025
+    [exit=0]
+--- unknown sender category ---
+    Skipped invalid EMAIL command: sender, subject or date is invalid.
+    There are 1 emails to read.
+    Next email:
+    Sender: OtherPerson
+    Subject: Y
+    Date: 01-01-2025
+    [exit=0]
+--- EMAIL line with no commas ---
+    Skipped invalid EMAIL command: expected sender, subject and date.
+    There are 0 emails to read.
+    [exit=0]
+--- EMAIL line with no date ---
+    Skipped invalid EMAIL command: expected sender, subject and date.
+    There are 1 emails to read.
+    Next email:
+    Sender: Boss
+    Subject: Has a date
+    Date: 01-01-2025
+    [exit=0]
+--- non-numeric date ---
+    Skipped invalid EMAIL command: sender, subject or date is invalid.
+    There are 1 emails to read.
+    Next email:
+    Sender: Boss
+    Subject: Good
+    Date: 01-01-2025
+    [exit=0]
+--- lowercase command ---
+    [exit=0]
+
+=== BEHAVIOR: command line ===
+  codex01 extra argument  -> Usage: ./codex01 [input-file]    [exit=1]
+  codex01 missing file    -> Error: could not open input file. [exit=1]
+  final  extra argument  -> Usage: ./final [input-file]      [exit=1]
+  final  missing file    -> Error: could not open input file. [exit=1]
+
+=== HEAP ORDER ORACLE (500 emails, no ties) ===
+  codex01: order CORRECT for all 500
+  final: order CORRECT for all 500
+
+=== SANITIZERS: every behavior case under -fsanitize=address,undefined ===
+  codex01: 0 of 25 cases reported a problem
+  final: 0 of 25 cases reported a problem
+
+=== EXECUTION TIME: scaling, user CPU seconds, best of 3 ===
+  build: g++ <plain>
+    N emails  codex01    final     
+    5000      0.006s     0.006s    
+    50000     0.066s     0.061s    
+    500000    0.905s     0.821s    
+  build: g++ -O2
+    N emails  codex01    final     
+    5000      0.004s     0.003s    
+    50000     0.047s     0.037s    
+    500000    0.591s     0.524s    
+
+=== SPACE: largest stack frames in the program's own functions ===
+  --- codex01 ---
+     int main(int, char**)                                   624 bytes
+     void EmailProgram::handleEmail(const string&)           320 bytes
+     void MaxHeap::swapItems(std::size_t, std::size_t)       192 bytes
+     void EmailProgram::run(std::istream&)                   96 bytes
+  --- final ---
+     int main(int, char**)                                   624 bytes
+     void EmailProgram::handleEmail(const string&)           320 bytes
+     void MaxHeap::swapItems(std::size_t, std::size_t)       192 bytes
+     void EmailProgram::run(std::istream&)                   96 bytes
+
+=== SPACE: sizeof(Email) ===
+  codex01 sizeof(Email) = 112 bytes
+  final  sizeof(Email) = 112 bytes
+
+=== SPACE: peak memory, 100,000 emails held at once (max RSS, KB, 5 runs) ===
+  codex01  20344 20296 20340 20344 20344
+  final   20360 20344 20344 20344 20340
+  codex01 baseline with no emails: 2816 KB
+  final  baseline with no emails: 2816 KB
+  (valgrind not installed here; leak check is covered by the sanitizer section)
+
+=== MAINTAINABILITY: size and structure ===
+  file     lines  blank  comment  classes   free fns
+  codex01    237     22      200        3          1
+  final      257     22      217        3          1
+  --- codex01: functions outside any class ---
+     line 219:int main(int argc, char* argv[]) { // start from a named file or standard input
+  --- final: functions outside any class ---
+     line 239:int main(int argc, char* argv[]) { // start from a named file or standard input
+
+=== MAINTAINABILITY: rubric prolog items present in the first 25 lines ===
+  --- codex01.cpp ---
+     program name           present
+     brief description      present
+     inputs                 present
+     outputs                present
+     author full name       present
+     creation date          present
+     revision date          present
+     collaborators          present
+     other sources / GenAI  present
+  --- final.cpp ---
+     program name           present
+     brief description      present
+     inputs                 present
+     outputs                present
+     author full name       present
+     creation date          present
+     revision date          present
+     collaborators          present
+     other sources / GenAI  present
+
+=== done ===

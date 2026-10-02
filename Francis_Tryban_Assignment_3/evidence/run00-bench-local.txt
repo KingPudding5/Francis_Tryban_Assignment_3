@@ -1,0 +1,444 @@
+
+=== ENVIRONMENT ===
+aarch64
+g++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0
+ldd (Ubuntu GLIBC 2.35-0ubuntu3.15) 2.35
+Fri Oct  2 01:36:50 UTC 2026
+sources: /sessions/rcw-01prah4xt7kyqzdg8hfv7dz2/mnt/AgenticArea/Francis_Tryban_Assignment_3/Claude/iterations/00-raw.cpp
+         /sessions/rcw-01prah4xt7kyqzdg8hfv7dz2/mnt/AgenticArea/Francis_Tryban_Assignment_3/Codex/iterations/00-raw.cpp
+
+=== COMPILE: g++ <plain command, no flags> ===
+--- claude.cpp ---
+exit=0
+--- codex.cpp ---
+exit=0
+
+=== COMPILE: g++ -Wall -Wextra ===
+--- claude.cpp ---
+exit=0
+--- codex.cpp ---
+exit=0
+
+=== COMPILE: g++ -O2 ===
+--- claude.cpp ---
+exit=0
+--- codex.cpp ---
+exit=0
+
+=== COMPILE: g++ -Wall -Wextra -O2 ===
+--- claude.cpp ---
+exit=0
+--- codex.cpp ---
+exit=0
+
+=== COMPILE: g++ -Wall -Wextra -Wconversion ===
+--- claude.cpp ---
+claude.cpp:86:30: warning: conversion from ‘std::vector<Email>::size_type’ {aka ‘long unsigned int’} to ‘int’ may change value [-Wconversion]
+claude.cpp:108:25: warning: conversion from ‘std::vector<Email>::size_type’ {aka ‘long unsigned int’} to ‘int’ may change value [-Wconversion]
+exit=0
+--- codex.cpp ---
+exit=0
+
+=== COMPILE: g++ -std=c++11 -pedantic ===
+--- claude.cpp ---
+exit=0
+--- codex.cpp ---
+exit=0
+
+=== COMPILE: g++ -std=c++98 -pedantic ===
+--- claude.cpp ---
+claude.cpp:9:15: error: ‘stoi’ was not declared in this scope
+exit=1
+--- codex.cpp ---
+codex.cpp:14:19: warning: ISO C++ 1998 does not support ‘long long’ [-Wlong-long]
+codex.cpp:17:55: warning: ISO C++ 1998 does not support ‘long long’ [-Wlong-long]
+codex.cpp:85:32: error: ‘nullptr’ was not declared in this scope
+codex.cpp:103:19: warning: ISO C++ 1998 does not support ‘long long’ [-Wlong-long]
+codex.cpp:103:39: warning: non-static data member initializers only available with ‘-std=c++11’ or ‘-std=gnu++11’
+codex.cpp:124:26: error: ‘nullptr’ was not declared in this scope
+codex.cpp:138:39: error: ‘std::string’ {aka ‘class std::__cxx11::basic_string<char>’} has no member named ‘back’
+codex.cpp:138:60: error: ‘std::string’ {aka ‘class std::__cxx11::basic_string<char>’} has no member named ‘pop_back’; did you mean ‘push_back’?
+exit=1
+
+=== SPEC SAMPLE: byte-exact, both input paths ===
+  claude (arg): BYTE-IDENTICAL
+  claude (stdin): BYTE-IDENTICAL
+  codex (arg): BYTE-IDENTICAL
+  codex (stdin): BYTE-IDENTICAL
+
+=== RESULTS: inside the stated format ===
+
+######## claude ########
+--- NEXT on empty inbox ---
+    [exit=0]
+--- READ on empty inbox ---
+    [exit=0]
+--- COUNT on empty inbox ---
+    There are 0 emails to read.
+    [exit=0]
+--- COUNT with exactly one ---
+    There are 1 emails to read.
+    [exit=0]
+--- two NEXTs, no READ between ---
+    Next email:
+    Sender: Boss
+    Subject: A
+    Date: 01-01-2025
+    Next email:
+    Sender: Boss
+    Subject: A
+    Date: 01-01-2025
+    [exit=0]
+--- two READs, no NEXT between ---
+    There are 0 emails to read.
+    [exit=0]
+--- READ more times than there are emails ---
+    There are 0 emails to read.
+    [exit=0]
+--- tie, same sender AND same date, x3 ---
+    Next email:
+    Sender: Boss
+    Subject: FIRST
+    Date: 01-01-2025
+    Next email:
+    Sender: Boss
+    Subject: THIRD
+    Date: 01-01-2025
+    Next email:
+    Sender: Boss
+    Subject: SECOND
+    Date: 01-01-2025
+    [exit=0]
+--- all five categories, same date ---
+    Next email:
+    Sender: Boss
+    Subject: A
+    Date: 01-01-2025
+    Next email:
+    Sender: Subordinate
+    Subject: B
+    Date: 01-01-2025
+    Next email:
+    Sender: Peer
+    Subject: C
+    Date: 01-01-2025
+    Next email:
+    Sender: ImportantPerson
+    Subject: D
+    Date: 01-01-2025
+    Next email:
+    Sender: OtherPerson
+    Subject: E
+    Date: 01-01-2025
+    [exit=0]
+--- date ordering crosses a year ---
+    Next email:
+    Sender: Boss
+    Subject: NEW
+    Date: 01-01-2025
+    [exit=0]
+--- same year, month decides over day ---
+    Next email:
+    Sender: Peer
+    Subject: FEB01
+    Date: 02-01-2025
+    [exit=0]
+--- subject containing spaces ---
+    Next email:
+    Sender: Boss
+    Subject: A subject with many spaces
+    Date: 01-01-2025
+    [exit=0]
+--- emails added after reading started ---
+    Next email:
+    Sender: Peer
+    Subject: P
+    Date: 01-01-2025
+    Next email:
+    Sender: Boss
+    Subject: B
+    Date: 01-01-2020
+    There are 2 emails to read.
+    [exit=0]
+--- empty file ---
+    [exit=0]
+
+######## codex ########
+--- NEXT on empty inbox ---
+    [exit=0]
+--- READ on empty inbox ---
+    [exit=0]
+--- COUNT on empty inbox ---
+    There are 0 emails to read.
+    [exit=0]
+--- COUNT with exactly one ---
+    There are 1 emails to read.
+    [exit=0]
+--- two NEXTs, no READ between ---
+    Next email:
+    Sender: Boss
+    Subject: A
+    Date: 01-01-2025
+    Next email:
+    Sender: Boss
+    Subject: A
+    Date: 01-01-2025
+    [exit=0]
+--- two READs, no NEXT between ---
+    There are 0 emails to read.
+    [exit=0]
+--- READ more times than there are emails ---
+    There are 0 emails to read.
+    [exit=0]
+--- tie, same sender AND same date, x3 ---
+    Next email:
+    Sender: Boss
+    Subject: FIRST
+    Date: 01-01-2025
+    Next email:
+    Sender: Boss
+    Subject: SECOND
+    Date: 01-01-2025
+    Next email:
+    Sender: Boss
+    Subject: THIRD
+    Date: 01-01-2025
+    [exit=0]
+--- all five categories, same date ---
+    Next email:
+    Sender: Boss
+    Subject: A
+    Date: 01-01-2025
+    Next email:
+    Sender: Subordinate
+    Subject: B
+    Date: 01-01-2025
+    Next email:
+    Sender: Peer
+    Subject: C
+    Date: 01-01-2025
+    Next email:
+    Sender: ImportantPerson
+    Subject: D
+    Date: 01-01-2025
+    Next email:
+    Sender: OtherPerson
+    Subject: E
+    Date: 01-01-2025
+    [exit=0]
+--- date ordering crosses a year ---
+    Next email:
+    Sender: Boss
+    Subject: NEW
+    Date: 01-01-2025
+    [exit=0]
+--- same year, month decides over day ---
+    Next email:
+    Sender: Peer
+    Subject: FEB01
+    Date: 02-01-2025
+    [exit=0]
+--- subject containing spaces ---
+    Next email:
+    Sender: Boss
+    Subject: A subject with many spaces
+    Date: 01-01-2025
+    [exit=0]
+--- emails added after reading started ---
+    Next email:
+    Sender: Peer
+    Subject: P
+    Date: 01-01-2025
+    Next email:
+    Sender: Boss
+    Subject: B
+    Date: 01-01-2020
+    There are 2 emails to read.
+    [exit=0]
+--- empty file ---
+    [exit=0]
+
+=== RESULTS: outside the stated format ===
+
+######## claude ########
+--- Windows line endings (CRLF) ---
+    There are 2 emails to read.
+    Next email:
+    Sender: Boss
+    Subject: A
+    Date: 01-01-2025
+    [exit=0]
+--- blank lines in the file ---
+    There are 1 emails to read.
+    [exit=0]
+--- trailing space after a command ---
+    There are 1 emails to read.
+    Next email:
+    Sender: Boss
+    Subject: A
+    Date: 01-01-2025
+    [exit=0]
+--- leading space before a command ---
+    There are 1 emails to read.
+    [exit=0]
+--- spaces after the commas ---
+    Next email:
+    Sender: Boss
+    Subject: Newer
+    Date: 01-02-2025
+    [exit=0]
+--- unknown sender category ---
+    There are 2 emails to read.
+    Next email:
+    Sender: OtherPerson
+    Subject: Y
+    Date: 01-01-2025
+    [exit=0]
+--- EMAIL line with no commas ---
+    There are 1 emails to read.
+    [exit=0]
+--- EMAIL line with no date ---
+    terminate called after throwing an instance of 'std::invalid_argument'
+      what():  stoi
+    [exit=134]
+--- non-numeric date ---
+    terminate called after throwing an instance of 'std::invalid_argument'
+      what():  stoi
+    [exit=134]
+--- lowercase command ---
+    [exit=0]
+
+######## codex ########
+--- Windows line endings (CRLF) ---
+    There are 2 emails to read.
+    Next email:
+    Sender: Boss
+    Subject: A
+    Date: 01-01-2025
+    [exit=0]
+--- blank lines in the file ---
+    There are 1 emails to read.
+    [exit=0]
+--- trailing space after a command ---
+    [exit=0]
+--- leading space before a command ---
+    [exit=0]
+--- spaces after the commas ---
+    Next email:
+    Sender: Boss
+    Subject: Older
+    Date: 01-01-2025
+    [exit=0]
+--- unknown sender category ---
+    There are 2 emails to read.
+    Next email:
+    Sender: Alien
+    Subject: X
+    Date: 01-02-2025
+    [exit=0]
+--- EMAIL line with no commas ---
+    There are 0 emails to read.
+    [exit=0]
+--- EMAIL line with no date ---
+    There are 1 emails to read.
+    Next email:
+    Sender: Boss
+    Subject: Has a date
+    Date: 01-01-2025
+    [exit=0]
+--- non-numeric date ---
+    There are 2 emails to read.
+    Next email:
+    Sender: Boss
+    Subject: Bad
+    Date: xx-yy-zzzz
+    [exit=0]
+--- lowercase command ---
+    [exit=0]
+
+=== BEHAVIOR: command line ===
+  claude extra argument  -> There are 0 emails to read.      [exit=0]
+  claude missing file    -> <no output>                      [exit=0]
+  codex  extra argument  -> There are 0 emails to read.      [exit=0]
+  codex  missing file    -> <no output>                      [exit=0]
+
+=== HEAP ORDER ORACLE (500 emails, no ties) ===
+  claude: order CORRECT for all 500
+  codex: order CORRECT for all 500
+
+=== SANITIZERS: every behavior case under -fsanitize=address,undefined ===
+  claude EMAIL line with no date                  terminate called after throwing an instance of 'std::invalid_argument'
+  claude non-numeric date                         terminate called after throwing an instance of 'std::invalid_argument'
+  claude: 2 of 25 cases reported a problem
+  codex: 0 of 25 cases reported a problem
+
+=== EXECUTION TIME: scaling, user CPU seconds, best of 3 ===
+  build: g++ <plain>
+    N emails  claude     codex     
+    5000      0.021s     0.005s    
+    50000     0.266s     0.059s    
+    500000    3.252s     0.777s    
+  build: g++ -O2
+    N emails  claude     codex     
+    5000      0.009s     0.003s    
+    50000     0.113s     0.036s    
+    500000    1.353s     0.49s     
+
+=== SPACE: largest stack frames in the program's own functions ===
+  --- claude ---
+     int main(int, char**)                                   1520 bytes
+     bool Email::operator>(const Email&) const               128 bytes
+     bool dateGreater(std::string, std::string)              112 bytes
+     Email::Email(std::string, std::string, std::string, int) 80 bytes
+  --- codex ---
+     int main(int, char**)                                   624 bytes
+     void EmailQueueProgram::handleEmail(const string&)      320 bytes
+     void MaxHeap::swapItems(std::size_t, std::size_t)       192 bytes
+     void EmailQueueProgram::run(std::istream&)              96 bytes
+
+=== SPACE: sizeof(Email) ===
+  claude sizeof(Email) = 104 bytes
+  codex  sizeof(Email) = 112 bytes
+
+=== SPACE: peak memory, 100,000 emails held at once (max RSS, KB, 5 runs) ===
+  claude  19024 19020 19024 19024 19020
+  codex   20344 20340 20344 20344 20344
+  claude baseline with no emails: 2816 KB
+  codex  baseline with no emails: 2816 KB
+  (valgrind not installed here; leak check is covered by the sanitizer section)
+
+=== MAINTAINABILITY: size and structure ===
+  file     lines  blank  comment  classes   free fns
+  claude     185     32        0        2          4
+  codex      156     19        1        3          1
+  --- claude: functions outside any class ---
+     line 8:bool dateGreater(string date1, string date2) {
+     line 112:int getPriority(string category) {
+     line 121:string trim(string s) {
+     line 128:int main(int argc, char* argv[]) {
+  --- codex: functions outside any class ---
+     line 144:int main(int argc, char* argv[]) {
+
+=== MAINTAINABILITY: rubric prolog items present in the first 25 lines ===
+  --- claude.cpp ---
+     program name           MISSING
+     brief description      MISSING
+     inputs                 MISSING
+     outputs                MISSING
+     author full name       MISSING
+     creation date          MISSING
+     revision date          MISSING
+     collaborators          MISSING
+     other sources / GenAI  MISSING
+  --- codex.cpp ---
+     program name           MISSING
+     brief description      MISSING
+     inputs                 MISSING
+     outputs                MISSING
+     author full name       MISSING
+     creation date          MISSING
+     revision date          MISSING
+     collaborators          MISSING
+     other sources / GenAI  MISSING
+
+=== done ===
